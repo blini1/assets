@@ -164,6 +164,7 @@ class NewsController extends Controller
      *             type="string"
      *         )
      *     ),
+     *
      *     @OA\RequestBody(
      *         description="Input data",
      *         @OA\MediaType(
