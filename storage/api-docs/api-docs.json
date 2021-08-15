@@ -1,0 +1,445 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Docmentation for news-api",
+        "description": "OpenApi description",
+        "contact": {
+            "email": "blinbakija@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:80/api/v1",
+            "description": "Demo API Server"
+        }
+    ],
+    "paths": {
+        "/news": {
+            "get": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "List news articles",
+                "operationId": "b72e92f9e7a4a9614c58ab847e0e4bee",
+                "responses": {
+                    "200": {
+                        "description": "List of news"
+                    },
+                    "default": {
+                        "description": "error"
+                    }
+                },
+                "security": [
+                    {
+                        "api_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Store new article in news",
+                "operationId": "c51305e05c312666ebce79cff1943766",
+                "requestBody": {
+                    "description": "Input data",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "description",
+                                    "link",
+                                    "publication_date",
+                                    "publisher_name"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "description": "Title to be created",
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "description": {
+                                        "description": "Description to be created",
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "link": {
+                                        "description": "Link to be created",
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "publication_date": {
+                                        "description": "Publication date to be created",
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "publisher_name": {
+                                        "description": "Publisher name to be created",
+                                        "type": "string",
+                                        "maxLength": 255
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NewsResource"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "422": {
+                        "description": "The given data was invalid"
+                    }
+                },
+                "security": [
+                    {
+                        "api_token": []
+                    }
+                ]
+            }
+        },
+        "/news/{id}": {
+            "get": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Get the specified news article",
+                "description": "Display the specified resource.\n\n/**",
+                "operationId": "80a1f70ce069ffe6fa7285a6092c373f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NewsResource"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    }
+                },
+                "security": [
+                    {
+                        "api_token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Update the specified news in db",
+                "operationId": "fcc10c910b068fd1f869cc5087fe5472",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Input data",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "description",
+                                    "link",
+                                    "publication_date",
+                                    "publisher_name"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "description": "Title to be created",
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "description": {
+                                        "description": "Description to be created",
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "link": {
+                                        "description": "Link to be created",
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "publication_date": {
+                                        "description": "Publication date to be created",
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "publisher_name": {
+                                        "description": "Publisher name to be created",
+                                        "type": "string",
+                                        "maxLength": 255
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NewsResource"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "The given data was invalid"
+                    }
+                },
+                "security": [
+                    {
+                        "api_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Remove the specified news article from db",
+                "description": "Remove the specified resource from storage.",
+                "operationId": "c84475d6f3d5724e428694f65a530224",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    }
+                },
+                "security": [
+                    {
+                        "api_token": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "NewsCollectionResource": {
+                "description": "User resource collection",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/News"
+                        }
+                    },
+                    "links": {
+                        "$ref": "#/components/schemas/ResourceLinks"
+                    },
+                    "meta": {
+                        "$ref": "#/components/schemas/ResourceMeta"
+                    }
+                },
+                "type": "object"
+            },
+            "NewsResource": {
+                "description": "News resource",
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/News"
+                    }
+                },
+                "type": "object"
+            },
+            "ResourceLinks": {
+                "properties": {
+                    "first": {
+                        "description": "First page link",
+                        "type": "string"
+                    },
+                    "last": {
+                        "description": "Last page link",
+                        "type": "string"
+                    },
+                    "prev": {
+                        "nullable": "true",
+                        "description": "Previous page link",
+                        "type": "string"
+                    },
+                    "next": {
+                        "nullable": "true",
+                        "description": "Next page link",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "ResourceMeta": {
+                "properties": {
+                    "current_page": {
+                        "description": "Current page number",
+                        "type": "integer"
+                    },
+                    "from": {
+                        "description": "Number of first item from current page",
+                        "type": "integer"
+                    },
+                    "last_page": {
+                        "description": "Last page number",
+                        "type": "integer"
+                    },
+                    "links": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ResourceMetaLinks"
+                        }
+                    },
+                    "path": {
+                        "description": "Base URL",
+                        "type": "string"
+                    },
+                    "per_page": {
+                        "description": "Number of item per page",
+                        "type": "integer"
+                    },
+                    "to": {
+                        "description": "Number of last item from current page",
+                        "type": "integer"
+                    },
+                    "total": {
+                        "description": "Total count of all items",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "ResourceMetaLinks": {
+                "properties": {
+                    "url": {
+                        "description": "Page link",
+                        "type": "string"
+                    },
+                    "label": {
+                        "description": "Page label",
+                        "type": "string"
+                    },
+                    "active": {
+                        "description": "Current page flag",
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
+            },
+            "News": {
+                "description": "News model",
+                "properties": {
+                    "id": {
+                        "description": "ID",
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "title": {
+                        "description": "Title",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "Description",
+                        "type": "string"
+                    },
+                    "link": {
+                        "description": "Link",
+                        "type": "string"
+                    },
+                    "publication_date": {
+                        "description": "Publication date",
+                        "type": "string"
+                    },
+                    "publisher_name": {
+                        "description": "Publication date",
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "description": "Created timestamp",
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "description": "Updated timestamp",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "api_token": {
+                "type": "apiKey",
+                "description": "Enter token provided to user",
+                "name": "token",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Projects",
+            "description": "API Endpoints of Projects"
+        }
+    ],
+    "security": [
+        []
+    ]
+}
