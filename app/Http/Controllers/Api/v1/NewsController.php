@@ -71,7 +71,7 @@ class NewsController extends Controller
      *                 ),
      *                 @OA\Property(
      *                     property="publication_date",
-     *                     description="Publication date to be created",
+     *                     description="Publication date to be created.Use format YYYY-mm-dd",
      *                     maxLength=255,
      *                     type="string",
      *                 ),
@@ -192,7 +192,7 @@ class NewsController extends Controller
      *                 ),
      *                 @OA\Property(
      *                     property="publication_date",
-     *                     description="Publication date to be created",
+     *                     description="Publication date to be created.Use format YYYY-mm-dd",
      *                     maxLength=255,
      *                     type="string",
      *                 ),

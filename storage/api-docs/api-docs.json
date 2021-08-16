@@ -71,7 +71,7 @@
                                         "maxLength": 255
                                     },
                                     "publication_date": {
-                                        "description": "Publication date to be created",
+                                        "description": "Publication date to be created.Use format YYYY-mm-dd",
                                         "type": "string",
                                         "maxLength": 255
                                     },
@@ -198,7 +198,7 @@
                                         "maxLength": 255
                                     },
                                     "publication_date": {
-                                        "description": "Publication date to be created",
+                                        "description": "Publication date to be created.Use format YYYY-mm-dd",
                                         "type": "string",
                                         "maxLength": 255
                                     },
