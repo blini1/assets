@@ -2,22 +2,20 @@
 
 namespace Tests\Feature;
 
+use App\Models\News;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use Faker\Factory;
 
 class NewsTest extends TestCase
 {
     /**
-     * A basic feature test example.
+     * A feature test for news article.
      *
      * @return void
      */
-    public function testsNewsAreCreatedCorrectly()
+    public function testNewsAreCreatedCorrectly()
     {
-        $user = User::factory()->count(10)->create();
+        $user = User::factory()->create();
         $token = $user->token;
         $headers = ['token' => "$token"];
         $payload = [
@@ -29,13 +27,61 @@ class NewsTest extends TestCase
         ];
 
         $this->json('POST', '/api/v1/news', $payload, $headers)
+            ->assertStatus(200);
+    }
+
+    public function testNewsAreUpdatedCorrectly()
+    {
+        $user = User::factory()->create();
+        $token = $user->token;
+        $headers = ['token' => "$token"];
+        $news = News::factory()->create();
+
+        $payload = [
+            'title' => 'Lorem',
+            'description' => 'Ipsum',
+            'link' => 'http://www.example.com',
+            'publication_date' => '2021-08-15',
+            'publisher_name' => 'John Doe',
+        ];
+
+        $this->json('PUT', '/api/v1/news/' . $news->id, $payload, $headers)
+            ->assertStatus(200);
+    }
+
+    public function testNewsShowSingleItemCorrectly()
+    {
+        $news = News::factory()->create([
+            'title' => 'News first',
+            'description' => 'Ipsum',
+            'link' => 'http://www.example.com',
+            'publication_date' => '2021-08-15',
+            'publisher_name' => 'John Doe',
+        ]);
+
+        $user = User::factory()->create();
+        $token = $user->token;
+        $headers = ['token' => "$token"];
+
+        $this->json('GET', '/api/v1/news/' .$news->id, [], $headers)
             ->assertStatus(200)
-            ->assertJson(['id' => 1,
-                'title' => 'Lorem',
-                'description' => 'Ipsum',
-                'link' => 'https://www.example.com',
-                'publication_date' => '2021-08-15',
-                'publisher_name' => 'John Doe'
-            ]);
+            ->assertJson(
+                [
+                    'data' => [
+                        'title' => 'News first',
+                    ],
+                ]
+            );
+    }
+
+    public function testNewsAreDeletedCorrectly()
+    {
+        $user = User::factory()->create();
+        $token = $user->token;
+        $headers = ['token' => "$token"];
+        $news = News::factory()->create();
+
+        $this->json('DELETE', '/api/v1/news/' . $news->id, [], $headers)
+            ->assertStatus(204);
     }
 }

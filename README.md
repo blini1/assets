@@ -22,4 +22,10 @@ docker-compose exec app php artisan migrate --seed
 For documentation refer to
 http://localhost/api/documentation
 
+To run the tests:
+
+```sh
+docker-compose exec app php artisan test
+```
+
 
