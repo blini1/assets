@@ -8,9 +8,9 @@ use App\Http\Resources\NewsCollectionResource as NewsCollection;
 use App\Models\News;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Http\Requests\NewsRequest as NewsRequest;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
 {
@@ -32,10 +32,15 @@ class NewsController extends Controller
      *   )
      * ),
      */
-    public function index()
+    public function index(Request $request, News $news)
     {
-        $news = News::paginate();
-        return (new NewsCollection($news))->response();
+        $news = $news->newQuery();
+        if($request->has('query')){
+            $title = $request->get('query');
+            $news->where('title', 'LIKE', "%$title%");
+        }
+
+        return (new NewsCollection($news->paginate()))->response();
     }
 
     /**
@@ -98,7 +103,24 @@ class NewsController extends Controller
      */
     public function store(NewsRequest $newsRequest)
     {
-        if (News::create($newsRequest->all())) {
+        $news = News::create($newsRequest->all());
+
+        if ($news) {
+            // if news have the related collection
+            // of images we save them on local database
+            if($newsRequest->has('images')){
+                $images = $newsRequest->images;
+                foreach ($images as $image){
+                    $disk =  Storage::disk('images');
+                    $path =  $disk->put('news', $image);
+                    $news->images()->create([
+                        'title' => pathinfo( $image->getClientOriginalName(), PATHINFO_FILENAME),
+                        'path' => $path,
+                        'size' => $image->getSize()
+                    ]);
+                    $news->photo = $path;
+                }
+            }
             return response()->json([
                 'success' => 'News article created successfully'
             ], 200);

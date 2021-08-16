@@ -33,4 +33,10 @@ class News extends Model
     protected $fillable = [
         'title', 'description', 'link', 'publication_date', 'publisher_name'
     ];
+
+
+    public function images()
+    {
+        return $this->hasMany('App\Models\Image');
+    }
 }

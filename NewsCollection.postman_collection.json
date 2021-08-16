@@ -12,8 +12,8 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
+					"mode": "formdata",
+					"formdata": [
 						{
 							"key": "title",
 							"value": "New title",
@@ -38,6 +38,16 @@
 							"key": "publisher_name",
 							"value": "John Doe",
 							"type": "text"
+						},
+						{
+							"key": "images[]",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "images[]",
+							"type": "file",
+							"src": []
 						}
 					]
 				},
