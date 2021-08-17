@@ -24,5 +24,7 @@ Route::group(
         Route::resources([
             'news' => NewsController::class,
         ]);
+        // Bulk upload of the news articles through the XML file
+        Route::post('news/bulk-upload', [NewsController::class, 'newsBulkUpload']);
     }
 );

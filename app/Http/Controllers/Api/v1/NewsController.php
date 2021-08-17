@@ -3,14 +3,17 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ImportRequest;
 use App\Http\Resources\NewsResource;
 use App\Http\Resources\NewsCollectionResource as NewsCollection;
+use App\Imports\NewsImport;
 use App\Models\News;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Requests\NewsRequest as NewsRequest;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class NewsController extends Controller
 {
@@ -121,9 +124,7 @@ class NewsController extends Controller
                     $news->photo = $path;
                 }
             }
-            return response()->json([
-                'success' => 'News article created successfully'
-            ], 200);
+            return (new NewsResource($news))->response();
         }
     }
 
@@ -289,5 +290,24 @@ class NewsController extends Controller
         Log::info("News article with ID {$news->id} deleted successfully.");
 
         return response('Deleted successfully', 204);
+    }
+
+
+    public function newsBulkUpload(ImportRequest $request): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $file = $request->file('file');
+            Excel::import(new NewsImport, $file);
+        } catch (\InvalidArgumentException $exception) {
+            return response()->json([
+                'error' => 'Something went wrong with the import'
+            ], 422);
+        }
+
+        Log::info("An excel file has been uploaded.");
+
+        return response()->json([
+            'success' => 'News imported successfully'
+        ], 200);
     }
 }

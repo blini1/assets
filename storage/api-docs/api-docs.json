@@ -308,21 +308,21 @@
             "ResourceLinks": {
                 "properties": {
                     "first": {
-                        "description": "First page link",
+                        "description": "First page",
                         "type": "string"
                     },
                     "last": {
-                        "description": "Last page link",
+                        "description": "Last page",
                         "type": "string"
                     },
                     "prev": {
                         "nullable": "true",
-                        "description": "Previous page link",
+                        "description": "Previous page",
                         "type": "string"
                     },
                     "next": {
                         "nullable": "true",
-                        "description": "Next page link",
+                        "description": "Next page",
                         "type": "string"
                     }
                 },

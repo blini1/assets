@@ -68,6 +68,38 @@
 			"response": []
 		},
 		{
+			"name": "Bulk Upload news",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/api/v1/news/bulk-upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"news",
+						"bulk-upload"
+					]
+				},
+				"description": "Get the list of all news articles"
+			},
+			"response": []
+		},
+		{
 			"name": "List all the news",
 			"request": {
 				"method": "GET",
