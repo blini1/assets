@@ -274,6 +274,58 @@
                     }
                 ]
             }
+        },
+        "/news/bulk-upload": {
+            "post": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Upload news in bulk mode",
+                "operationId": "0bfc852877d9901dc71cd13431d80cdb",
+                "requestBody": {
+                    "description": "Please select the news upload file provided in instructions or <a href='https://we.tl/t-OXFyS57XdM'> click here</a> to download it",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "file"
+                                ],
+                                "properties": {
+                                    "file": {
+                                        "description": "file to be uploaded",
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NewsResource"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "422": {
+                        "description": "The given data was invalid"
+                    }
+                },
+                "security": [
+                    {
+                        "api_token": []
+                    }
+                ]
+            }
         }
     },
     "components": {

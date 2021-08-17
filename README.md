@@ -22,10 +22,11 @@ docker-compose exec app php artisan migrate --seed
 For documentation refer to
 http://localhost/api/documentation
 
-To run the tests:
+For the bulk upload you can find the file under /public/import or [click here][importFile]
 
-```sh
-docker-compose exec app php artisan test
-```
+
+[//]: #
+
+   [importFile]: <https://we.tl/t-OXFyS57XdM>
 
 

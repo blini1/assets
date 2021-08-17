@@ -5,7 +5,7 @@ return [
     'documentations' => [
         'default' => [
             'api' => [
-                'title' => 'News article swagger UI',
+                'title' => 'News documentation',
             ],
 
             'routes' => [

@@ -293,6 +293,39 @@ class NewsController extends Controller
     }
 
 
+    /**
+     * @OA\Post(
+     *     path="/news/bulk-upload",
+     *     tags={"News"},
+     *     summary="Upload news in bulk mode",
+     *     security={{"api_token":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         description="Please select the news upload file provided in instructions or <a href='https://we.tl/t-OXFyS57XdM'> click here</a> to download it",
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 required={"file"},
+     *                 @OA\Property(
+     *                     property="file",
+     *                     description="file to be uploaded",
+     *                     type="file",
+     *                 ),
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Successful operation",
+     *         @OA\JsonContent(ref="#/components/schemas/NewsResource"),
+     *     ),
+     *     @OA\Response(response=400, description="Bad request"),
+     *     @OA\Response(response=422, description="The given data was invalid"),
+     * )
+     *
+     * @param  \Illuminate\Http\Request  $newsRequest
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function newsBulkUpload(ImportRequest $request): \Illuminate\Http\JsonResponse
     {
         try {
